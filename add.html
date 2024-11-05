@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction</title>
+</head>
+<body>
+    <h2>Add a Transaction</h2>
+    <form action="{{ url_for('add_transaction') }}" method="POST">
+        <label for="date">Date (dd-mm-yyyy):</label>
+        <input type="text" id="date" name="date" required 
+               pattern="\d{2}-\d{2}-\d{4}" 
+               title="Please enter the date in dd-mm-yyyy format (e.g., 01-01-2024)">
+        <br><br>
+
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" name="amount" required 
+               pattern="^\d+(\.\d{2})?$" 
+               title="Please enter a valid amount (e.g., 200.00)">
+        <br><br>
+
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="Income">Income</option>
+            <option value="Expense">Expense</option>
+        </select>
+        <br><br>
+
+        <label for="description">Description (optional):</label>
+        <textarea id="description" name="description" placeholder="Optional description"></textarea>
+        <br><br>
+
+        <button type="submit">Add Transaction</button>
+    </form>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,90 @@
+from datetime import datetime
+
+# Constants
+date_format = "%d-%m-%Y"
+CATEGORIES = {"I": "Income", "E": "Expense"}
+
+def is_valid_date(date_str: str) -> bool:
+    """Validates the date format.
+
+    Args:
+        date_str (str): The date string to validate.
+
+    Returns:
+        bool: True if the date is valid, False otherwise.
+    """
+    try:
+        datetime.strptime(date_str, date_format)  # Ensure date is in dd-mm-yyyy format
+        return True
+    except ValueError:
+        return False
+    
+def get_date(date_str: str, allow_default: bool = False) -> str:
+    """Get a valid date or return None if invalid.
+
+    Args:
+        date_str (str): The date string to validate.
+        allow_default (bool): Whether to return the current date if invalid.
+
+    Returns:
+        str: A valid date string in the specified format or None.
+    """
+    if is_valid_date(date_str):
+        return date_str
+    elif allow_default:
+        return datetime.now().strftime(date_format)  # Return current date in specified format
+    return None  # Return None for invalid or improperly formatted dates
+
+def get_amount(amount_str: str) -> float:
+    """Get a valid amount or return None if invalid.
+
+    Args:
+        amount_str (str): The amount string to convert.
+
+    Returns:
+        float: A valid amount as a float or None if invalid.
+    """
+    if amount_str is None:  # Check for None before proceeding
+        return None
+    try:
+        amount_str = amount_str.strip()  # Remove any whitespace
+        amount = float(amount_str)
+        
+        # Ensure the amount has exactly two decimal places
+        if '.' in amount_str:
+            decimal_part = amount_str.split('.')[1]
+            if len(decimal_part) != 2:  # Check if there are exactly two decimal places
+                raise ValueError("Amount must have exactly two decimal places.")
+        
+        if amount <= 0:
+            raise ValueError("Amount must be a positive number.")
+        
+        return amount
+    except (ValueError, TypeError) as e:
+        print(f"Error converting amount: {e}")  # Optional logging for debugging
+        return None  # Return None for invalid input
+
+def get_category(category_str: str) -> str:
+    """Ensures category is either Income or Expense.
+
+    Args:
+        category_str (str): The category string to validate.
+
+    Returns:
+        str: A valid category or None if invalid.
+    """
+    category_str = category_str.strip().capitalize()
+    if category_str in ["Income", "Expense"]:
+        return category_str
+    return None  # Return None for invalid category
+
+def get_description(description_str: str) -> str:
+    """Return a sanitized description or an empty string if not provided.
+
+    Args:
+        description_str (str): The description string to sanitize.
+
+    Returns:
+        str: A sanitized description or an empty string.
+    """
+    return description_str.strip() if description_str else ""  # Return stripped description or empty string

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>View Transactions</title>
+</head>
+<body>
+    <h1>View Transactions</h1>
+
+    <form method="POST" action="/view">
+        <label for="start_date">Start Date (dd-mm-yyyy):</label>
+        <input type="text" id="start_date" name="start_date" required>
+
+        <label for="end_date">End Date (dd-mm-yyyy):</label>
+        <input type="text" id="end_date" name="end_date" required>
+
+        <button type="submit">View Transactions</button>
+    </form>
+
+    {% if transactions %}
+        <h2>Transactions:</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.category }}</td>
+                <td>{{ transaction.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if plot_url %}
+        <h2>Income and Expenses Chart:</h2>
+        <img src="{{ plot_url }}" alt="Income and Expenses Chart">
+    {% endif %}
+</body>
+</html>

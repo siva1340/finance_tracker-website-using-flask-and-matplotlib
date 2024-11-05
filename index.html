@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Personal Finance Tracker</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Personal Finance Tracker</h1>
+        <nav>
+            <a href="{{ url_for('add_transaction') }}">Add Transaction</a>
+            <a href="{{ url_for('view_transactions') }}">View Transactions</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to Your Finance Tracker!</h2>
+        <p>Track your income and expenses easily.</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Personal Finance Tracker</p>
+    </footer>
+</body>
+</html>

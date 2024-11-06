@@ -1,0 +1,4 @@
+// script.js
+document.addEventListener("DOMContentLoaded", function() {
+    alert("Welcome to the Personal Finance Tracker!");
+});
